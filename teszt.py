@@ -1,22 +1,24 @@
-def draw_rectangle(width, height):
-    horizontal_line = "+" + "-" * (width - 2) + "+"
-    vertical_line = "|" + " " * (width - 2) + "|"
+# ANSI Escape kódok
+SARGA = '\033[93m'
+ALAP = '\033[0m'
+KEK = '\033[94m'
+ZOLD = '\033[92m'
+import os
 
-    print(horizontal_line)
-    for _ in range(height - 2):
-        print(vertical_line)
-    print(horizontal_line)
+def clear_screen():
+    os.system("cls" if os.name == "nt" else "clear")
 
-def draw_menu(menu_options):
-    print("Menüpontok:")
-    for i, option in enumerate(menu_options, start=1):
-        print(f"{i} - {option}")
+# Fő program
+while True:
+    clear_screen()
 
-# Négyzet körvonalának kirajzolása
-width = 20
-height = 10
-draw_rectangle(width, height)
+    print(f"{SARGA}----- MENÜ -----")
+    print("1. Kilistázza az adatokat a szavazatok száma szerinti csökkenő sorrendben.")
+    print("2. Frissíti a szavazatok számát véletlenszerűen 0 és 50 közötti szavazathozzáadással.")
+    print("3. Jelenítse meg a legtöbb szavazattal rendelkező dal adatait.")
+    print("4. Exportálja az objektumlistát XML formátumba.")
+    print(f"0. Kilépés a programból.{ALAP}\n")
 
-# Menüpontok megjelenítése
-menu_options = ["lista", "frissít", "kilép"]
-draw_menu(menu_options)
+    choice = input(f"{ZOLD}Válasszon menüpontot: {ALAP}")
+
+    # Menükezelés és további folytatás...
