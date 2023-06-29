@@ -5,8 +5,9 @@ with open('lista.csv', 'r') as file:
 
     # Zeneszámok feldolgozása soronként
     for row in reader:
-        artist = row[0]
-        title = row[1]
-        rank = int(row[2])
-    # Feldolgozott adatok kiíratása vagy további feldolgozása
-        print(f"{artist:55}{title:40}\t{rank}")
+        eloado = row[0]
+        cim = row[1]
+        helyezes = int(row[2])
+    # Feldolgozott adatok kiíratása táblázat szerűen
+        print(f"{eloado:53} |   {cim:40} | {helyezes:4} |")
+        print("_"*107)
