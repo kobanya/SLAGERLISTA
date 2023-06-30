@@ -4,6 +4,7 @@ import xml.etree.ElementTree as ET
 
 
 # ANSI Escape kódok
+MENU = '\x1b[1;30;43m'   # sárga alapon fekete betű, vastagon szedve
 SARGA = '\033[93m'
 ALAP = '\033[0m'
 KEK = '\033[94m'
@@ -32,7 +33,7 @@ def list_songs():
         helyezes = song["votes"]
 
         # Feldolgozott adatok kiíratása táblázat szerűen
-        print(f"{eloado:<53} | {cim:<40} | {helyezes:^9} |")
+        print(f"{BOLD}{eloado:<53}{NORMAL} | {cim:<40} | {helyezes:^9} |")
         print("─" * 109)
 
 # Fő program
@@ -46,12 +47,13 @@ with open('lista.csv', 'r') as file:
 while True:
     print('\033c')
 
-    print(f"{SARGA}{BOLD}----- MENÜ -----{NORMAL}")
-    print("1. Kilistázza az adatokat a szavazatok száma szerinti csökkenő sorrendben.")
-    print("2. Frissíti a szavazatok számát véletlenszerűen 0 és 50 közötti szavazathozzáadással.")
-    print("3. Jelenítse meg a legtöbb szavazattal rendelkező dal adatait.")
-    print("4. Exportálja az objektumlistát XML formátumba.")
-    print(f"0. Kilépés a programból.{ALAP}\n")
+    print(f"{MENU} ----- MENÜ -----")
+    print(" 1. Kilistázza az adatokat a szavazatok száma szerinti csökkenő sorrendben.")
+    print(" 2. Frissíti a szavazatok számát véletlenszerűen 0 és 50 közötti szavazathozzáadással.")
+    print(" 3. Jelenítse meg a legtöbb szavazattal rendelkező dal adatait.")
+    print(" 4. Exportálja az objektumlistát XML formátumba.")
+    print(f" 0. Kilépés a programból.")
+    print(f'{ALAP}')
 
     choice = input(f"{ZOLD}{BOLD}Válasszon menüpontot: {ALAP}{NORMAL}")
     print()
