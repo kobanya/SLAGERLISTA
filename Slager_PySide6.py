@@ -3,7 +3,7 @@ import csv
 import random
 import xml.etree.ElementTree as ET
 from PySide6.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QPushButton, \
-    QHBoxLayout
+    QHBoxLayout, QPlainTextEdit
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor
 
@@ -16,7 +16,7 @@ class SongManager(QWidget):
         self.original_songs = []
         self.create_layout()
         self.load_songs_from_csv()
-        self.setFixedSize(970, 500)  # ablak mérete
+        self.setFixedSize(970, 490)  # ablak mérete
         self.setWindowTitle('SLÁGERLISTA')
 
     def create_layout(self):
@@ -39,6 +39,11 @@ class SongManager(QWidget):
         separator_label = QLabel()
         separator_label.setStyleSheet("")
         layout.addWidget(separator_label)
+
+        self.message_box = QPlainTextEdit()
+        self.message_box.setReadOnly(True)
+        self.message_box.setFixedHeight(50)
+        layout.addWidget(self.message_box)
 
         button_layout = QHBoxLayout()  # Módosítás: QHBoxLayout létrehozása
 
@@ -71,6 +76,7 @@ class SongManager(QWidget):
 
         layout.addLayout(button_layout)
 
+
     def load_songs_from_csv(self):
         self.original_songs = []
         filename = 'lista.csv'
@@ -81,11 +87,13 @@ class SongManager(QWidget):
                 votes = int(votes)
                 self.original_songs.append({"artist": artist, "title": title, "votes": votes})
         self.update_song_list()
-
+        self.clear_message_box()
+    def clear_message_box(self):
+        self.message_box.clear()
     def update_song_list(self):
         self.songs = list(self.original_songs)
         self.list_songs()
-
+        self.clear_message_box()
     def list_songs(self):
         self.table.setRowCount(len(self.songs))
         sorted_songs = sorted(self.songs, key=lambda x: x["votes"], reverse=True)
@@ -101,6 +109,7 @@ class SongManager(QWidget):
         for song in self.songs:
             song["votes"] += random.randint(0, 50)
         self.list_songs()
+        self.clear_message_box() 
 
     def show_top_song(self):
         if self.songs:
@@ -131,7 +140,7 @@ class SongManager(QWidget):
         tree = ET.ElementTree(root)
         ET.indent(tree, space="\t", level=0)
         tree.write("songs.xml")
-        print("Az objektumlista sikeresen exportálva lett XML formátumba")
+        self.message_box.setPlainText("Az objektumlista sikeresen exportálva lett XML formátumba")
 
 
 if __name__ == '__main__':
