@@ -3,6 +3,7 @@ import random
 import sys
 import xml.etree.ElementTree as ET
 
+from PyQt6.QtGui import QIcon
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont, QColor
 from PySide6.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QPushButton, \
@@ -69,6 +70,8 @@ class SongManager(QWidget):
         export_button.clicked.connect(self.export_to_xml)
 
         exit_button = QPushButton('Kilépés')
+
+
         exit_button.setFont(menu_font)
         exit_button.setStyleSheet("background-color: red; color: white;")
         exit_button.clicked.connect(self.close)
@@ -119,6 +122,7 @@ class SongManager(QWidget):
         self.clear_message_box()
 
     def show_top_song(self):
+        global row
         if self.songs:
             top_song = max(self.songs, key=lambda x: x["votes"])
             self.table.clearSelection()
