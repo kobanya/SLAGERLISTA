@@ -13,6 +13,7 @@ class SongManager(wx.Frame):
         self.message_box = wx.TextCtrl(self.panel, style=wx.TE_MULTILINE | wx.TE_READONLY)
         self.table = gridlib.Grid(self.panel)
 
+
         self.songs = []
         self.original_songs = []
 
@@ -103,24 +104,32 @@ class SongManager(wx.Frame):
             top_song = max(self.songs, key=lambda x: x["votes"])
             self.table.ClearSelection()
             for row in range(self.table.GetNumberRows()):
-                if self.table.GetCellValue(row, 0) == top_song["artist"] and \
-                        self.table.GetCellValue(row, 1) == top_song["title"] and \
-                        self.table.GetCellValue(row, 2) == str(top_song["votes"]):
+                if (
+                        self.table.GetCellValue(row, 0) == top_song["artist"]
+                        and self.table.GetCellValue(row, 1) == top_song["title"]
+                        and self.table.GetCellValue(row, 2) == str(top_song["votes"])
+                ):
                     for col in range(self.table.GetNumberCols()):
                         self.table.SetCellBackgroundColour(row, col, wx.YELLOW)
                         self.table.SetCellTextColour(row, col, wx.BLACK)
-                        font = self.table.GetCellFont(row, col)
-                        font.SetWeight(wx.FONTWEIGHT_BOLD)
+                        font = wx.Font(
+                            10,
+                            wx.DEFAULT,
+                            wx.NORMAL,
+                            wx.BOLD  # Betűtípus vastag (bold)
+                        )
                         self.table.SetCellFont(row, col, font)
                     self.table.MakeCellVisible(row, 0)
                     break
 
-            message = f"A legtöbb szavazatot kapott sláger:\n" \
-                      f"Előadó: {self.table.GetCellValue(row, 0)}," \
-                      f"   Cím:  {self.table.GetCellValue(row, 1)}," \
-                      f"   Pontszám: {self.table.GetCellValue(row, 2)}"
+            self.table.ForceRefresh()  # Frissítés a megjelenítéshez
 
-            self.message_box.SetValue(message)
+            self.message_box.SetValue(
+                f"A legtöbb szavazatot kapott sláger:\n"
+                f"Előadó: {top_song['artist']},"
+                f"   Cím:  {top_song['title']},"
+                f"   Pontszám: {top_song['votes']}"
+            )
 
     def export_to_xml(self, event=None):
         root = ET.Element("songs")
