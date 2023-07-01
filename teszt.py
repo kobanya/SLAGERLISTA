@@ -1,3 +1,14 @@
-print('\x1b[3;30;43m' + ' Hello world! ' + '\x1b[0m')
-print('\x1b[3;30;43m' + ' Hello world! ' + '\x1b[0m')
+import PySimpleGUI as sg
 
+layout = [
+    [sg.Button('Kilépés', button_type=7)]
+]
+
+window = sg.Window('My Window', layout)
+
+while True:
+    event, values = window.read()
+    if event == sg.WINDOW_CLOSED:
+        break
+
+window.close()

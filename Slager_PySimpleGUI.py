@@ -3,18 +3,6 @@ import random
 import xml.etree.ElementTree as ET
 import PySimpleGUI as sg
 
-
-# ANSI Escape kódok
-MENU = '\x1b[1;30;43m'   # sárga alapon fekete betű, vastagon szedve
-SARGA = '\033[93m'
-ALAP = '\033[0m'
-KEK = '\033[94m'
-ZOLD = '\033[92m'
-BOLD = "\033[1m"
-NORMAL = "\033[0m"
-TOROL = '\x1b[2J'
-
-
 class SongManager:
     def __init__(self):
         self.songs = []
@@ -40,14 +28,15 @@ class SongManager:
                 col_widths=[50, 50, 10],
                 key='-TABLE-',
                 enable_events=True,
+
                  )]
         ]
         buttons = [
-            [sg.Button('Beolvasás', size=(8, 5), key='-LIST-'),
+            [sg.Button('Beolvasás', size=(20, 5), key='-LIST-'),
              sg.Button('Frissítés', size=(8, 5), key='-UPDATE-'),
              sg.Button('1. hely', size=(8, 5), key='-TOP-'),
              sg.Button('XML', size=(8, 5), key='-EXPORT-'),
-             sg.Button('Kilépés', size=(8, 5), key='-EXIT-')],
+             sg.Button('Kilépés', size=(20, 5), button_color=('red', 'white'), key='-EXIT-')],
         ]
 
         layout = [
