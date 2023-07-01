@@ -11,6 +11,7 @@ from PySide6.QtGui import QColor
 class SongManager(QWidget):
     def __init__(self):
         super().__init__()
+        self.message_box = QPlainTextEdit()
         self.table = QTableWidget()
         self.songs = []
         self.original_songs = []
@@ -21,7 +22,6 @@ class SongManager(QWidget):
 
     def create_layout(self):
         menu_font = ('Arial', 14, 'bold')
-        table_font = ('Arial', 12)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
@@ -40,7 +40,6 @@ class SongManager(QWidget):
         separator_label.setStyleSheet("")
         layout.addWidget(separator_label)
 
-        self.message_box = QPlainTextEdit()
         self.message_box.setReadOnly(True)
         self.message_box.setFixedHeight(50)
         layout.addWidget(self.message_box)
@@ -76,7 +75,6 @@ class SongManager(QWidget):
 
         layout.addLayout(button_layout)
 
-
     def load_songs_from_csv(self):
         self.original_songs = []
         filename = 'lista.csv'
@@ -88,12 +86,15 @@ class SongManager(QWidget):
                 self.original_songs.append({"artist": artist, "title": title, "votes": votes})
         self.update_song_list()
         self.clear_message_box()
+
     def clear_message_box(self):
         self.message_box.clear()
+
     def update_song_list(self):
         self.songs = list(self.original_songs)
         self.list_songs()
         self.clear_message_box()
+
     def list_songs(self):
         self.table.setRowCount(len(self.songs))
         sorted_songs = sorted(self.songs, key=lambda x: x["votes"], reverse=True)
@@ -109,9 +110,10 @@ class SongManager(QWidget):
         for song in self.songs:
             song["votes"] += random.randint(0, 50)
         self.list_songs()
-        self.clear_message_box() 
+        self.clear_message_box()
 
     def show_top_song(self):
+        global row
         if self.songs:
             top_song = max(self.songs, key=lambda x: x["votes"])
             self.table.clearSelection()
@@ -130,6 +132,15 @@ class SongManager(QWidget):
                     self.table.scrollToItem(item)
                     break
 
+            # Kiírás a message_boxba
+            if item is not None:
+                message = f"A legtöbb szavazatot kapott sláger:\n" \
+                          f"Előadó: {self.table.item(row, 0).text()}," \
+                          f"   Cím:  {self.table.item(row, 1).text()}," \
+                          f"   Pontszám: {self.table.item(row, 2).text()}"
+
+                self.message_box.setPlainText(message)
+
     def export_to_xml(self):
         root = ET.Element("songs")
         for song in self.songs:
@@ -140,7 +151,7 @@ class SongManager(QWidget):
         tree = ET.ElementTree(root)
         ET.indent(tree, space="\t", level=0)
         tree.write("songs.xml")
-        self.message_box.setPlainText("Az objektumlista sikeresen exportálva lett XML formátumba")
+        self.message_box.setPlainText("Az objektumlista exportálása XML formátumba, sikeres!")
 
 
 if __name__ == '__main__':
