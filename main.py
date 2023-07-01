@@ -11,6 +11,8 @@ KEK = '\033[94m'
 ZOLD = '\033[92m'
 BOLD = "\033[1m"
 NORMAL = "\033[0m"
+TOROL = '\x1b[2J'
+
 
 
 # Adatok inicializálása
@@ -45,7 +47,7 @@ with open('lista.csv', 'r') as file:
         songs.append({"artist": artist, "title": title, "votes": votes})
 
 while True:
-    print('\033c')
+    print(f'')
 
     print(f"{MENU} ----- MENÜ -----")
     print(" 1. Kilistázza az adatokat a szavazatok száma szerinti csökkenő sorrendben.")
@@ -56,7 +58,7 @@ while True:
     print(f'{ALAP}')
 
     choice = input(f"{ZOLD}{BOLD}Válasszon menüpontot: {ALAP}{NORMAL}")
-    print()
+    print(f'{TOROL}')
     print()
 
     if choice == "1":
