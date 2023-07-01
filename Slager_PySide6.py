@@ -10,6 +10,7 @@ from PySide6.QtGui import QColor
 class SongManager(QWidget):
     def __init__(self):
         super().__init__()
+        self.table = QTableWidget()
         self.songs = []
         self.original_songs = []
         self.create_layout()
@@ -22,11 +23,16 @@ class SongManager(QWidget):
         layout = QVBoxLayout()
         self.setLayout(layout)
 
-        self.table = QTableWidget()
         self.table.setColumnCount(3)
         self.table.setHorizontalHeaderLabels(['Előadó', 'Cím', 'Helyezés'])
 
+        # Oszlopok szélességének beállítása
+        self.table.setColumnWidth(0, 500)  # Előadó oszlop szélessége: 150 pixel
+        self.table.setColumnWidth(1, 300)  # Cím oszlop szélessége: 200 pixel
+        self.table.setColumnWidth(2, 100)
+
         layout.addWidget(self.table)
+
 
         button_layout = QVBoxLayout()
 
