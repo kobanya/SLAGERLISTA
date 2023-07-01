@@ -94,15 +94,18 @@ class SongManager(QWidget):
         if self.songs:
             top_song = max(self.songs, key=lambda x: x["votes"])
             self.table.clearSelection()
+            item = None  # Változó inicializálása a cikluson kívül
             for row in range(self.table.rowCount()):
                 if self.table.item(row, 0).text() == top_song["artist"] and \
                         self.table.item(row, 1).text() == top_song["title"] and \
                         self.table.item(row, 2).text() == str(top_song["votes"]):
                     for col in range(self.table.columnCount()):
                         item = self.table.item(row, col)
-                        if item is not None:
-                            item.setBackground(QColor(Qt.yellow))
-                            item.setForeground(QColor(Qt.black))
+                        item.setBackground(QColor(Qt.yellow))
+                        item.setForeground(QColor(Qt.black))
+                        font = item.font()
+                        font.setBold(True)
+                        item.setFont(font)
                     self.table.scrollToItem(item)
                     break
 
