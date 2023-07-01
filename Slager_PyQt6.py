@@ -1,11 +1,12 @@
-import sys
 import csv
 import random
+import sys
 import xml.etree.ElementTree as ET
-from PySide6.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QPushButton, \
-    QHBoxLayout, QPlainTextEdit
+
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QFont, QColor
+from PySide6.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QPushButton, \
+    QHBoxLayout, QPlainTextEdit
 
 
 class SongManager(QWidget):
@@ -17,7 +18,7 @@ class SongManager(QWidget):
         self.original_songs = []
         self.create_layout()
         self.load_songs_from_csv()
-        self.setFixedSize(970, 480)  # ablak mérete
+        self.setFixedSize(960, 480)  # ablak mérete
         self.setWindowTitle('SLÁGERLISTA')
 
     def create_layout(self):
@@ -33,9 +34,10 @@ class SongManager(QWidget):
         self.table.setColumnWidth(0, 500)  # Előadó oszlop szélessége: 500 pixel
         self.table.setColumnWidth(1, 300)  # Cím oszlop szélessége: 300 pixel
         self.table.setColumnWidth(2, 100)
+
         layout.addWidget(self.table)
 
-        # Elválasztó elem hozzáadása
+# Elválasztó elem hozzáadása
         separator_label = QLabel()
         separator_label.setStyleSheet("")
         layout.addWidget(separator_label)
@@ -54,7 +56,7 @@ class SongManager(QWidget):
         load_button.setFont(menu_font)
         load_button.clicked.connect(self.load_songs_from_csv)
 
-        update_button = QPushButton('Frissítés - Szavazás')
+        update_button = QPushButton(' Frissítés - Szavazás ')
         update_button.setFont(menu_font)
         update_button.clicked.connect(self.update_votes)
 
