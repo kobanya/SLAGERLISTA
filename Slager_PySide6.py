@@ -2,7 +2,7 @@ import sys
 import csv
 import random
 import xml.etree.ElementTree as ET
-from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QPushButton
+from PySide6.QtWidgets import QApplication,QLabel, QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QPushButton
 from PySide6.QtCore import Qt
 from PySide6.QtGui import QColor
 
@@ -31,8 +31,12 @@ class SongManager(QWidget):
         self.table.setColumnWidth(0, 500)  # Előadó oszlop szélessége: 150 pixel
         self.table.setColumnWidth(1, 300)  # Cím oszlop szélessége: 200 pixel
         self.table.setColumnWidth(2, 100)
-
         layout.addWidget(self.table)
+
+        # Elválasztó elem hozzáadása
+        separator_label = QLabel()
+        separator_label.setStyleSheet("")
+        layout.addWidget(separator_label)
 
 
         button_layout = QVBoxLayout()
