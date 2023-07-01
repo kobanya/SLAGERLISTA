@@ -39,8 +39,8 @@ class SongManager:
                 auto_size_columns=False,
                 col_widths=[50, 50, 10],
                 key='-TABLE-',
-                enable_events=True
-            )]
+                enable_events=True,
+                 )]
         ]
         buttons = [
             [sg.Button('Beolvasás', size=(8, 5), key='-LIST-'),
@@ -80,10 +80,11 @@ class SongManager:
     def update_votes(self):
         for song in self.songs:
             song["votes"] += random.randint(0, 50)
+        self.songs = sorted(self.songs, key=lambda x: x["votes"], reverse=True)
         self.list_songs()
 
     def show_top_song(self):
-        top_song = max(self.songs, key=lambda x: x["votes"])
+        top_song = self.songs[0]
         self.window['-TABLE-'].update(values=[[top_song["artist"], top_song["title"], top_song["votes"]]])
 
     def export_to_xml(self):
