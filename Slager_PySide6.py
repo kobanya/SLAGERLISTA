@@ -15,6 +15,7 @@ class SongManager(QWidget):
         self.original_songs = []
         self.create_layout()
         self.load_songs_from_csv()
+        self.setFixedSize(970, 500)  # ablak mérete
 
     def create_layout(self):
         menu_font = ('Arial', 14, 'bold')
