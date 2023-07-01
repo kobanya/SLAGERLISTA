@@ -18,7 +18,9 @@ TOROL = '\x1b[2J'
 class SongManager:
     def __init__(self):
         self.songs = []
+        self.original_songs = []
         self.create_layout()
+        self.load_songs_from_csv('lista.csv')
 
     def create_layout(self):
         menu_font = ('Arial', 14, 'bold')
@@ -43,10 +45,9 @@ class SongManager:
         buttons = [
             [sg.Button('Beolvasás', size=(8, 5), key='-LIST-'),
              sg.Button('Frissítés', size=(8, 5), key='-UPDATE-'),
-             sg.Button('1. hely',size=(8,5), key='-TOP-'),
-             sg.Button('XML', size=(8,5), key='-EXPORT-'),
-             sg.Button('Kilépés',size=(8,5) ,key='-EXIT-')],
-
+             sg.Button('1. hely', size=(8, 5), key='-TOP-'),
+             sg.Button('XML', size=(8, 5), key='-EXPORT-'),
+             sg.Button('Kilépés', size=(8, 5), key='-EXIT-')],
         ]
 
         layout = [
@@ -55,16 +56,21 @@ class SongManager:
             [sg.Column(buttons, justification='center')]
         ]
 
-        self.window = sg.Window('SLÁGERLISTA', layout)
+        self.window = sg.Window('SLÁGERLISTA', layout, finalize=True)
 
     def load_songs_from_csv(self, filename):
-        self.songs = []
+        self.original_songs = []
         with open(filename, 'r') as file:
             reader = csv.reader(file, delimiter=';')
             for row in reader:
                 artist, title, votes = row
                 votes = int(votes)
-                self.songs.append({"artist": artist, "title": title, "votes": votes})
+                self.original_songs.append({"artist": artist, "title": title, "votes": votes})
+        self.update_song_list()
+
+    def update_song_list(self):
+        self.songs = list(self.original_songs)
+        self.list_songs()
 
     def list_songs(self):
         sorted_songs = sorted(self.songs, key=lambda x: x["votes"], reverse=True)
@@ -98,7 +104,7 @@ class SongManager:
             if event == sg.WINDOW_CLOSED or event == '-EXIT-':
                 break
             elif event == '-LIST-':
-                self.list_songs()
+                self.load_songs_from_csv('lista.csv')
             elif event == '-UPDATE-':
                 self.update_votes()
             elif event == '-TOP-':
@@ -110,5 +116,4 @@ class SongManager:
 
 
 song_manager = SongManager()
-song_manager.load_songs_from_csv('lista.csv')
 song_manager.run()
