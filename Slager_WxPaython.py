@@ -13,7 +13,6 @@ class SongManager(wx.Frame):
         self.message_box = wx.TextCtrl(self.panel, style=wx.TE_MULTILINE | wx.TE_READONLY)
         self.table = gridlib.Grid(self.panel)
 
-
         self.songs = []
         self.original_songs = []
 
@@ -24,7 +23,7 @@ class SongManager(wx.Frame):
         sizer = wx.BoxSizer(wx.VERTICAL)
         self.panel.SetSizer(sizer)
 
-        self.table.CreateGrid(0, 3)
+        self.table.CreateGrid(1, 3)  # Kezdetben 1 sor van a táblázatban
         self.table.SetColLabelValue(0, "Előadó")
         self.table.SetColLabelValue(1, "Cím")
         self.table.SetColLabelValue(2, "Helyezés")
@@ -63,6 +62,7 @@ class SongManager(wx.Frame):
 
         sizer.Add(button_sizer, 0, wx.ALIGN_RIGHT)
 
+
     def load_songs_from_csv(self, event=None):
         self.original_songs = []
         filename = "lista.csv"
@@ -84,12 +84,8 @@ class SongManager(wx.Frame):
         self.clear_message_box()
 
     def list_songs(self):
-        self.table.ClearGrid()
+        self.table.DeleteRows(0, self.table.GetNumberRows())
         sorted_songs = sorted(self.songs, key=lambda x: x["votes"], reverse=True)
-        self.table.AppendCols(3)
-        self.table.SetColLabelValue(0, "Előadó")
-        self.table.SetColLabelValue(1, "Cím")
-        self.table.SetColLabelValue(2, "Helyezés")
         self.table.AppendRows(len(sorted_songs))
         for row, song in enumerate(sorted_songs):
             self.table.SetCellValue(row, 0, song["artist"])
@@ -103,7 +99,6 @@ class SongManager(wx.Frame):
         self.clear_message_box()
 
     def show_top_song(self, event=None):
-        global row
         if self.songs:
             top_song = max(self.songs, key=lambda x: x["votes"])
             self.table.ClearSelection()
@@ -115,7 +110,7 @@ class SongManager(wx.Frame):
                         self.table.SetCellBackgroundColour(row, col, wx.YELLOW)
                         self.table.SetCellTextColour(row, col, wx.BLACK)
                         font = self.table.GetCellFont(row, col)
-                        font.SetWeight(wx.BOLD)
+                        font.SetWeight(wx.FONTWEIGHT_BOLD)
                         self.table.SetCellFont(row, col, font)
                     self.table.MakeCellVisible(row, 0)
                     break
