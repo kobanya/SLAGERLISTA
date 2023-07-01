@@ -5,7 +5,7 @@ import xml.etree.ElementTree as ET
 from PySide6.QtWidgets import QApplication, QLabel, QWidget, QVBoxLayout, QTableWidget, QTableWidgetItem, QPushButton, \
     QHBoxLayout, QPlainTextEdit
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QColor
+from PySide6.QtGui import QFont, QColor
 
 
 class SongManager(QWidget):
@@ -17,17 +17,17 @@ class SongManager(QWidget):
         self.original_songs = []
         self.create_layout()
         self.load_songs_from_csv()
-        self.setFixedSize(970, 490)  # ablak mérete
+        self.setFixedSize(970, 480)  # ablak mérete
         self.setWindowTitle('SLÁGERLISTA')
 
     def create_layout(self):
-        menu_font = ('Arial', 14, 'bold')
+        menu_font = QFont('Arial', 14, QFont.Weight.Bold)
 
         layout = QVBoxLayout()
         self.setLayout(layout)
 
         self.table.setColumnCount(3)
-        self.table.setHorizontalHeaderLabels(['Előadó', 'Cím', 'Helyezés'])
+        self.table.setHorizontalHeaderLabels(['Előadó', 'Cím', 'Pontszám'])
 
         # Oszlopok szélességének beállítása
         self.table.setColumnWidth(0, 500)  # Előadó oszlop szélessége: 500 pixel
@@ -41,8 +41,12 @@ class SongManager(QWidget):
         layout.addWidget(separator_label)
 
         self.message_box.setReadOnly(True)
-        self.message_box.setFixedHeight(50)
+        self.message_box.setFixedHeight(40)
         layout.addWidget(self.message_box)
+
+        separator_label = QLabel()
+        separator_label.setStyleSheet("")
+        layout.addWidget(separator_label)
 
         button_layout = QHBoxLayout()  # Módosítás: QHBoxLayout létrehozása
 
@@ -113,7 +117,6 @@ class SongManager(QWidget):
         self.clear_message_box()
 
     def show_top_song(self):
-        global row
         if self.songs:
             top_song = max(self.songs, key=lambda x: x["votes"])
             self.table.clearSelection()
@@ -135,9 +138,9 @@ class SongManager(QWidget):
             # Kiírás a message_boxba
             if item is not None:
                 message = f"A legtöbb szavazatot kapott sláger:\n" \
-                          f"Előadó: {self.table.item(row, 0).text()}," \
-                          f"   Cím:  {self.table.item(row, 1).text()}," \
-                          f"   Pontszám: {self.table.item(row, 2).text()}"
+                          f" {self.table.item(row, 0).text()}, " \
+                          f" {self.table.item(row, 1).text()}, " \
+                          f" {self.table.item(row, 2).text()} ponttal"
 
                 self.message_box.setPlainText(message)
 
@@ -152,6 +155,9 @@ class SongManager(QWidget):
         ET.indent(tree, space="\t", level=0)
         tree.write("songs.xml")
         self.message_box.setPlainText("Az objektumlista exportálása XML formátumba, sikeres!")
+
+    def close(self):
+        QApplication.instance().quit()
 
 
 if __name__ == '__main__':
