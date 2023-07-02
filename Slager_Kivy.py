@@ -32,7 +32,7 @@ class SongManager(BoxLayout):
 
     def create_layout(self):
         # A mobiltelefon méretei
-        Window.size = (800, 1400)
+        Window.size = (890, 1300)
 
         button_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.1))
 
@@ -78,7 +78,7 @@ class SongManager(BoxLayout):
 
         for song_label in self.table_layout.children:
             votes = song_label.text.split('Helyezés: ')[1]
-            song_label.color = (1, 1, 1, 1)
+            song_label.color = (1, 1, 1, 1)   # kijelölés megszüntetése
 
             votes = int(votes)
             votes += random.randint(0, 50)
