@@ -34,29 +34,31 @@ class SongManager(BoxLayout):
         # A mobiltelefon méretei
         Window.size = (800, 1400)
 
-        button_layout = BoxLayout(orientation='horizontal')
+        button_layout = BoxLayout(orientation='horizontal', size_hint=(1, 0.1))
 
-        load_button = Button(text='Beolvasás', font_size='28dp')
+        load_button = Button(text='Beolvasás', font_size='28dp', size_hint=(0.1, 1))
         load_button.bind(on_release=self.load_songs_from_csv)
         button_layout.add_widget(load_button)
 
-        update_button = Button(text='Frissítés', font_size='28dp')
+        update_button = Button(text='Frissítés', font_size='28dp', size_hint=(0.1, 1))
         update_button.bind(on_release=self.update_votes)
         button_layout.add_widget(update_button)
 
-        top_button = Button(text='1. hely', font_size='28dp')
+        top_button = Button(text='1. hely', font_size='28dp', size_hint=(0.1, 1))
         top_button.bind(on_release=self.show_top_song)
         button_layout.add_widget(top_button)
 
-        export_button = Button(text='XML', font_size='28dp')
+        export_button = Button(text='XML', font_size='28dp', size_hint=(0.1, 1))
         export_button.bind(on_release=self.export_to_xml)
         button_layout.add_widget(export_button)
 
-        exit_button = Button(text='Kilépés', font_size='28dp', background_color=(1, 0, 0, 1))
+        exit_button = Button(text='Kilépés', font_size='28dp', size_hint=(0.1, 1), background_color=(1, 0, 0, 1))
         exit_button.bind(on_release=self.close)
         button_layout.add_widget(exit_button)
 
         self.add_widget(button_layout)
+
+        self.table_scroll_view.size_hint_y = 0.7
 
     def load_songs_from_csv(self, *args):
         self.message_box.text = " "
