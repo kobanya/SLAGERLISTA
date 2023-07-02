@@ -7,6 +7,7 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.uix.scrollview import ScrollView
+from kivy.core.window import Window
 
 
 class SongManager(BoxLayout):
@@ -30,6 +31,9 @@ class SongManager(BoxLayout):
         self.add_widget(self.table_scroll_view)
 
     def create_layout(self):
+        # A mobiltelefon méretei
+        Window.size = (800, 1400)
+
         button_layout = BoxLayout(orientation='horizontal')
 
         load_button = Button(text='Beolvasás', font_size='28dp')
