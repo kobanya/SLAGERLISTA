@@ -21,9 +21,9 @@ class SongManager:
         self.table.column('Előadó', width=800)
         self.table.column('Cím', width=400)
         self.table.column('Pontszám', width=170)
-# sormagassság, hogy ne csósszanak össze
+    # sormagassság, hogy ne csósszanak össze
         style = ttk.Style()
-        style.configure("Treeview", rowheight=30)
+        style.configure("Treeview", rowheight=35)
         self.table.pack()
 
 
@@ -33,7 +33,6 @@ class SongManager:
 
         self.message_box = Text(self.root, height=2, width=82)
         self.message_box.configure(background='lightgray')
-        #self.message_box.configure(borderwidth=1, relief='solid')
         self.message_box.pack()
 
         self.separator = ttk.Separator(self.root, orient='horizontal')
@@ -54,7 +53,8 @@ class SongManager:
         export_button = Button(button_frame, text='XML', command=self.export_to_xml)
         export_button.pack(side='left', padx=50)
 
-        exit_button = Button(button_frame, text='Kilépés', command=self.close, bg='red')
+        exit_button = Button(button_frame, text='Kilépés', command=self.close, bg = '#960000', fg='white')
+
         exit_button.pack(side='right', padx=50)
 
         self.separator = ttk.Separator(self.root, orient='horizontal')
@@ -96,6 +96,7 @@ class SongManager:
         for song in self.songs:
             song["votes"] += random.randint(0, 50)
         self.list_songs()
+        self.clear_message_box()
 
     def show_top_song(self):
         if self.songs:
