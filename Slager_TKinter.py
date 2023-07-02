@@ -21,7 +21,10 @@ class SongManager:
         self.table.column('Előadó', width=800)
         self.table.column('Cím', width=400)
         self.table.column('Pontszám', width=170)
-    # sormagassság, hogy ne csósszanak össze
+        self.table.pack(fill='x', padx=(15, 15), pady=5) #táblázat méretei
+
+
+        # sormagassság, hogy ne csósszanak össze
         style = ttk.Style()
         style.configure("Treeview", rowheight=35)
         self.table.pack()
@@ -31,7 +34,7 @@ class SongManager:
         self.separator = ttk.Separator(self.root, orient='horizontal')
         self.separator.pack(pady=10)
 
-        self.message_box = Text(self.root, height=2, width=82)
+        self.message_box = Text(self.root, height=2, width=85)
         self.message_box.configure(background='lightgray')
         self.message_box.pack()
 
