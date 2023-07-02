@@ -15,7 +15,7 @@ class SongManager(BoxLayout):
         super().__init__(**kwargs)
         self.orientation = 'vertical'
         self.spacing = 20  # Sorköz beállítása a BoxLayout-ban
-        self.message_box = TextInput(multiline=True, readonly=True, font_size='25dp')
+        self.message_box = TextInput(multiline=True, readonly=True, font_size='35dp')
         self.message_box.vertical_align = 'center'
         self.message_box.size_hint_y = None
         self.message_box.height = 100  # Megadja a kívánt magasságot (pl. 300 pixel)
@@ -97,8 +97,8 @@ class SongManager(BoxLayout):
             artist = top_song.text.split('\n')[0].split(': ')[1]
             title = top_song.text.split('\n')[1].split(': ')[1]
             votes = top_song.text.split('\n')[2].split(': ')[1]
-            message = f"{artist}, " \
-                      f"{title}, " \
+            message = f" {artist}, " \
+                      f"{title},\n " \
                       f"Pontszám: {votes}"
             self.message_box.text = message
 
