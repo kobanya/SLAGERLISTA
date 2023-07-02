@@ -37,6 +37,7 @@ class SongManager(wx.Frame):
         self.message_box.SetMinSize((0, 50))
         sizer.Add(self.message_box, 0, wx.EXPAND | wx.ALL, 5)
 
+
         button_sizer = wx.BoxSizer(wx.HORIZONTAL)
 
         load_button = wx.Button(self.panel, label="Beolvasás")

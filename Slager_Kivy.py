@@ -15,8 +15,14 @@ class SongManager(BoxLayout):
         self.orientation = 'vertical'
         self.spacing = 20  # Sorköz beállítása a BoxLayout-ban
         self.message_box = TextInput(multiline=True, readonly=True)
+        self.message_box.vertical_align = 'center'
+        self.message_box.size_hint_y = None
+        self.message_box.height = 100  # Megadja a kívánt magasságot (pl. 300 pixel)
+
         self.table_layout = BoxLayout(orientation='vertical', size_hint=(1, None), spacing=20)  # Sorköz beállítása a BoxLayout-ban
-        self.table_scroll_view = ScrollView(size_hint=(1, None), size=(100, 400))
+        self.table_scroll_view = ScrollView(size_hint=(1, None), size=(100, 300))
+        self.table_layout.height = 1500  # A kívánt magasság megadása (pl. 500 pixel)
+
         self.table_scroll_view.add_widget(self.table_layout)
         self.create_layout()
         self.load_songs_from_csv()
