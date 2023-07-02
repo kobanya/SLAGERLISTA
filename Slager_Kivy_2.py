@@ -76,9 +76,11 @@ class SongManager(BoxLayout):
     def update_votes(self, *args):
         self.message_box.text = ""
 
+
         for song_label in self.table_layout.children:
             votes = song_label.text.split("Helyezés: ")[1].split("\n")[0].strip()
             votes = int(votes)
+            song_label.color = (1, 1, 1, 1)  # kijelölés megszüntetése
             votes += random.randint(0, 50)
             song_label.text = song_label.text.split("Helyezés: ")[0] + f"Helyezés: {votes}\n"
 
