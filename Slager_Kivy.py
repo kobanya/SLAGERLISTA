@@ -74,8 +74,12 @@ class SongManager(BoxLayout):
                 self.table_layout.add_widget(song_label)
     def update_votes(self, *args):
         self.message_box.text = " "
+
+
         for song_label in self.table_layout.children:
             votes = song_label.text.split('Helyezés: ')[1]
+            song_label.color = (1, 1, 1, 1)
+
             votes = int(votes)
             votes += random.randint(0, 50)
             song_label.text = song_label.text.split('Helyezés: ')[0] + f'Helyezés: {votes}'
