@@ -27,9 +27,9 @@ class SongManager:
         self.separator = ttk.Separator(self.root, orient='horizontal')
         self.separator.pack(pady=10)
 
-        self.message_box = Text(self.root, height=2, width=80)
+        self.message_box = Text(self.root, height=2, width=82)
         self.message_box.configure(background='lightgray')
-        self.message_box.configure(borderwidth=1, relief='solid')
+        #self.message_box.configure(borderwidth=1, relief='solid')
         self.message_box.pack()
 
         self.separator = ttk.Separator(self.root, orient='horizontal')
@@ -39,22 +39,22 @@ class SongManager:
         button_frame.pack()
 
         load_button = Button(button_frame, text='Beolvasás', command=self.load_songs_from_csv)
-        load_button.pack(side='left')
+        load_button.pack(side='left', padx=50)
 
         update_button = Button(button_frame, text='Frissítés - Szavazás', command=self.update_votes)
-        update_button.pack(side='left')
+        update_button.pack(side='left', padx=50)
 
         top_button = Button(button_frame, text='1. hely', command=self.show_top_song)
-        top_button.pack(side='left')
+        top_button.pack(side='left', padx=50)
 
         export_button = Button(button_frame, text='XML', command=self.export_to_xml)
-        export_button.pack(side='left')
+        export_button.pack(side='left', padx=50)
 
-        exit_button = Button(button_frame, text='Kilépés', command=self.close)
-        exit_button.pack(side='left')
+        exit_button = Button(button_frame, text='Kilépés', command=self.close, bg='red')
+        exit_button.pack(side='right', padx=50)
 
         self.separator = ttk.Separator(self.root, orient='horizontal')
-        self.separator.pack(pady=30)
+        self.separator.pack(pady=20)
 
     def load_songs_from_csv(self):
         self.original_songs = []
