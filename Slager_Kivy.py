@@ -14,7 +14,7 @@ class SongManager(BoxLayout):
         super().__init__(**kwargs)
         self.orientation = 'vertical'
         self.spacing = 20  # Sorköz beállítása a BoxLayout-ban
-        self.message_box = TextInput(multiline=True, readonly=True)
+        self.message_box = TextInput(multiline=True, readonly=True, font_size='25dp')
         self.message_box.vertical_align = 'center'
         self.message_box.size_hint_y = None
         self.message_box.height = 100  # Megadja a kívánt magasságot (pl. 300 pixel)
@@ -32,23 +32,23 @@ class SongManager(BoxLayout):
     def create_layout(self):
         button_layout = BoxLayout(orientation='horizontal')
 
-        load_button = Button(text='Beolvasás')
+        load_button = Button(text='Beolvasás', font_size='28dp')
         load_button.bind(on_release=self.load_songs_from_csv)
         button_layout.add_widget(load_button)
 
-        update_button = Button(text='Frissítés')
+        update_button = Button(text='Frissítés', font_size='28dp')
         update_button.bind(on_release=self.update_votes)
         button_layout.add_widget(update_button)
 
-        top_button = Button(text='1. hely')
+        top_button = Button(text='1. hely', font_size='28dp')
         top_button.bind(on_release=self.show_top_song)
         button_layout.add_widget(top_button)
 
-        export_button = Button(text='XML')
+        export_button = Button(text='XML', font_size='28dp')
         export_button.bind(on_release=self.export_to_xml)
         button_layout.add_widget(export_button)
 
-        exit_button = Button(text='Kilépés')
+        exit_button = Button(text='Kilépés', font_size='28dp')
         exit_button.bind(on_release=self.close)
         button_layout.add_widget(exit_button)
 
