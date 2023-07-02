@@ -1,6 +1,5 @@
 import csv
 import random
-import sys
 import xml.etree.ElementTree as ET
 from tkinter import *
 from tkinter import ttk
@@ -22,7 +21,12 @@ class SongManager:
         self.table.column('Előadó', width=800)
         self.table.column('Cím', width=400)
         self.table.column('Pontszám', width=170)
+# sormagassság, hogy ne csósszanak össze
+        style = ttk.Style()
+        style.configure("Treeview", rowheight=30)
         self.table.pack()
+
+
 
         self.separator = ttk.Separator(self.root, orient='horizontal')
         self.separator.pack(pady=10)
