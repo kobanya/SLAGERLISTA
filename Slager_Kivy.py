@@ -48,7 +48,7 @@ class SongManager(BoxLayout):
         export_button.bind(on_release=self.export_to_xml)
         button_layout.add_widget(export_button)
 
-        exit_button = Button(text='Kilépés', font_size='28dp')
+        exit_button = Button(text='Kilépés', font_size='28dp', background_color=(1, 0, 0, 1))
         exit_button.bind(on_release=self.close)
         button_layout.add_widget(exit_button)
 
