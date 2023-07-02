@@ -70,10 +70,8 @@ class SongManager(BoxLayout):
                 votes = int(votes)
                 song_label = Label(text=f"Előadó: {artist}\nCím: {title}\nHelyezés: {votes}",
                                    padding=(20, 20), size_hint=(1, None), height=120, font_size=29)
-
-
-
                 self.table_layout.add_widget(song_label)
+
 
     def update_votes(self, *args):
         self.message_box.text = ""
@@ -83,6 +81,7 @@ class SongManager(BoxLayout):
             votes = int(votes)
             votes += random.randint(0, 50)
             song_label.text = song_label.text.split("Helyezés: ")[0] + f"Helyezés: {votes}\n"
+
     def show_top_song(self, *args):
         top_song = None
         max_votes = 0
@@ -95,12 +94,11 @@ class SongManager(BoxLayout):
         if top_song is not None:
             top_song.color = (1, 1, 0, 1)
             self.table_scroll_view.scroll_to(top_song)
-            artist = top_song.text.split('Előadó: ')[1].split('\nCím:')[0]
-            title = top_song.text.split('Cím: ')[1].split('\nHelyezés:')[0]
-            votes = top_song.text.split('Helyezés: ')[1]
-            message = f"A legtöbb szavazatot kapott sláger:\n" \
-                      f"{artist}\n" \
-                      f"{title}\n" \
+            artist = top_song.text.split('\n')[0].split(': ')[1]
+            title = top_song.text.split('\n')[1].split(': ')[1]
+            votes = top_song.text.split('\n')[2].split(': ')[1]
+            message = f"{artist}, " \
+                      f"{title}, " \
                       f"Pontszám: {votes}"
             self.message_box.text = message
 
