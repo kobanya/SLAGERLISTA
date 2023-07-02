@@ -67,6 +67,7 @@ class SongManager(BoxLayout):
   # Sorköz beállítása a Label widgetben
                 self.table_layout.add_widget(song_label)
     def update_votes(self, *args):
+        self.message_box.text = " "
         for song_label in self.table_layout.children:
             votes = song_label.text.split('Helyezés: ')[1]
             votes = int(votes)
@@ -83,8 +84,8 @@ class SongManager(BoxLayout):
         title = top_song.text.split('Cím: ')[1].split(', Helyezés:')[0]
         votes = top_song.text.split('Helyezés: ')[1]
         message = f"A legtöbb szavazatot kapott sláger:\n" \
-                  f"Előadó: {artist}," \
-                  f"   Cím:  {title}," \
+                  f"{artist}, " \
+                  f"{title}, " \
                   f"   Pontszám: {votes}"
         self.message_box.text = message
 
